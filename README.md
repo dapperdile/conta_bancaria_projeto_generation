@@ -1,6 +1,6 @@
 # Simulação de Conta Bancária 🏦
 
-Projeto desenvolvido durante um bootcamp, com o objetivo de praticar e compreender conceitos fundamentais de funções utilizando Typescript.
+Projeto desenvolvido durante o bootcamp de Javascript da Generation, com o objetivo de praticar e compreender conceitos fundamentais de funções utilizando Typescript.
 Aqui é simulada uma conta bancária básica, onde é possível realizar operações essenciais como depósito, saque e consulta de saldo.
 
 # 📌 Objetivo
