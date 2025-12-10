@@ -2,10 +2,16 @@ import readlinesync = require("readline-sync");
 import { colors } from "./src/util/Colors";
 import { ContaCorrente } from "./src/model/ContaCorrente";
 import { ContaPoupanca } from "./src/model/ContaPoupanca";
+import { ContaController } from "./src/controller/ContaController";
+import { read } from "fs";
 
 export function main() {
 
-    let opcao: number;
+    let contas: ContaController = new ContaController()
+
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number
+    let titular: string
+    const tiposContas = ['Conta Corrente', 'Conta Poupanca']
 
 
    // Objeto da Classe ContaCorrente (Teste)
@@ -61,10 +67,37 @@ export function main() {
             case 1:
                 console.log(colors.fg.whitestrong,"\n\nCriar Conta\n\n",colors.reset);
 
+                console.log("Digite o número da agência: ")
+                agencia = readlinesync.questionInt("")
+
+                console.log("Digite o Nome do Titular da conta: ")
+                titular = readlinesync.question("")
+
+                console.log("Digite o tipo da conta: ")
+                tipo = readlinesync.keyInSelect(tiposContas, "", {cancel: false}) + 1
+
+                console.log("Digite o Saldo da conta (R$): ")
+                saldo = readlinesync.questionFloat("")
+
+                switch(tipo) {
+                    case 1:
+                        console.log("Digite o Limite da Conta (R$): ")
+                        limite = readlinesync.questionFloat("")
+                        contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite))
+                        break
+                    case 2:
+                        console.log("Digite o Dia do aniversário da Conta Poupança: ")
+                        aniversario = readlinesync.questionInt("")
+                        contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario))
+                        break
+                }
+
                 keyPress()
                 break;
             case 2:
                 console.log(colors.fg.whitestrong,"\n\nListar todas as Contas\n\n",colors.reset);
+                
+                contas.listarTodas()
 
                 keyPress()
                 break;
